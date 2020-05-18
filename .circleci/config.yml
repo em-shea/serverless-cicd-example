@@ -1,0 +1,22 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/python:3
+
+    steps:
+      - checkout
+
+      - run:
+          name: Install awscli
+          command: sudo pip install awscli
+      
+      - run:
+          name: Install SAM
+          command: sudo pip install aws-sam-cli
+
+      - run: 
+          name: Deploy with SAM
+          # Be sure to replace the S3 bucket name with the name of the bucket you created
+          # In parameter-overrides, we reference the phone number environment variable you stored in CircleCI using '$'
+          command: sam deploy --s3-bucket your-bucket-name --stack-name example-cicd-project --region us-east-1 --capabilities CAPABILITY_IAM --parameter-overrides MyPhoneNumber=$MyPhoneNumber

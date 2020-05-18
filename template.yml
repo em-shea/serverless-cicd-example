@@ -1,0 +1,38 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: 'AWS::Serverless-2016-10-31'
+Description: An example app with a Lambda function that sends texts via SNS.
+Parameters:
+  # Pass secrets that you don't want stored in your code repository as parameters
+  MyPhoneNumber:
+    Type: String
+
+Resources:
+  SendTextFunction:
+    # A Lambda function that sends a messages to an SNS topic
+    Type: 'AWS::Serverless::Function'
+    Properties:
+      FunctionName: SendTextFunction
+      Handler: SendTextFunction.lambda_handler
+      Runtime: python3.7
+      CodeUri: ./SendTextFunction
+      Description: A Lambda function that sends text messages 
+      Timeout: 120
+      Policies:
+      # Find more SAM IAM policy templates here: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-policy-templates.html
+       - SNSPublishMessagePolicy:
+          # Our function only has permissions to send to the SNS topic we created
+          TopicName: !Ref SendTextSNSTopic
+      Environment:
+        Variables:
+          # If your functions need to use variables passed as parameters, reference them as environment variables
+          MY_PHONE_NUMBER: !Ref MyPhoneNumber
+          # You can also reference other resources created in this template as environment variables
+          SNS_TOPIC_ARN: !Ref SendTextSNSTopic
+
+  SendTextSNSTopic:
+    # An SNS topic that sends text messages
+    Type: AWS::SNS::Topic
+    Properties:
+      Subscription:
+      - Protocol: text
+        Endpoint: !Ref MyPhoneNumber
