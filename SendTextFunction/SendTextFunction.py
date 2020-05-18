@@ -8,6 +8,8 @@ def lambda_handler(event, context):
 
   text_message = "Congrats! You deployed this application using a CI/CD pipeline."
 
+  phone_number = os.environ['MY_PHONE_NUMBER']
+
   publish_sns_update(text_message)
 
   # add error handling, phone number last four digits
