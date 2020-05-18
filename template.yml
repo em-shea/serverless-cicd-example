@@ -34,5 +34,5 @@ Resources:
     Type: AWS::SNS::Topic
     Properties:
       Subscription:
-      - Protocol: text
+      - Protocol: sms
         Endpoint: !Ref MyPhoneNumber
