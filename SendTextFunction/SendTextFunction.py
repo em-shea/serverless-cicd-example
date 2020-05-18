@@ -10,9 +10,12 @@ def lambda_handler(event, context):
 
   phone_number = os.environ['MY_PHONE_NUMBER']
 
-  publish_sns_update(text_message)
-
-  # add error handling, phone number last four digits
+  print(f"Publishing message to SNS topic. Subscriber phone number ends in {phone_number[-4:]}")
+  try:
+    publish_sns_update(text_message)
+    print("Message send success.")
+  except Exception as error:
+    print(f"Message send failed, error: {error}")
 
 def publish_sns_update(text_message):
 
