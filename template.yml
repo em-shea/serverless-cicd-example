@@ -19,7 +19,7 @@ Resources:
       Timeout: 120
       Policies:
       # Find more SAM IAM policy templates here: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-policy-templates.html
-       - SNSPublishMessagePolicy:
+      - SNSPublishMessagePolicy:
           # Our function only has permissions to send to the SNS topic we created
           TopicName: !GetAtt SendTextSNSTopic.TopicName
       Environment:
