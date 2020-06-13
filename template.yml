@@ -7,11 +7,11 @@ Parameters:
     Type: String
 
 Resources:
-  SendTextFunction:
+  CICDSendTextFunction:
     # A Lambda function that sends a messages to an SNS topic
     Type: 'AWS::Serverless::Function'
     Properties:
-      FunctionName: SendTextFunction
+      FunctionName: CICDSendTextFunction
       Handler: send_text_function.lambda_handler
       Runtime: python3.7
       Description: A Lambda function that sends text messages 
@@ -20,15 +20,15 @@ Resources:
       # Find more SAM IAM policy templates here: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-policy-templates.html
       - SNSPublishMessagePolicy:
           # Our function only has permissions to send to the SNS topic we created
-          TopicName: !GetAtt SendTextSNSTopic.TopicName
+          TopicName: !GetAtt CICDSendTextSNSTopic.TopicName
       Environment:
         Variables:
           # If your functions need to use variables passed as parameters, reference them as environment variables
           MY_PHONE_NUMBER: !Ref MyPhoneNumber
           # You can also reference other resources created in this template as environment variables
-          SNS_TOPIC_ARN: !Ref SendTextSNSTopic
+          SNS_TOPIC_ARN: !Ref CICDSendTextSNSTopic
 
-  SendTextSNSTopic:
+  CICDSendTextSNSTopic:
     # An SNS topic that sends text messages
     Type: AWS::SNS::Topic
     Properties:
