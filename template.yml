@@ -14,7 +14,6 @@ Resources:
       FunctionName: SendTextFunction
       Handler: send_text_function.lambda_handler
       Runtime: python3.7
-      CodeUri: /
       Description: A Lambda function that sends text messages 
       Timeout: 120
       Policies:
