@@ -12,9 +12,9 @@ Resources:
     Type: 'AWS::Serverless::Function'
     Properties:
       FunctionName: SendTextFunction
-      Handler: SendTextFunction.lambda_handler
+      Handler: send_text_function.lambda_handler
       Runtime: python3.7
-      CodeUri: ./SendTextFunction
+      CodeUri: /
       Description: A Lambda function that sends text messages 
       Timeout: 120
       Policies:
