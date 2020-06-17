@@ -8,7 +8,7 @@ Parameters:
 
 Resources:
   CICDSendTextFunction:
-    # A Lambda function that sends a messages to an SNS topic
+    # A Lambda function that sends messages to an SNS topic
     Type: 'AWS::Serverless::Function'
     Properties:
       FunctionName: CICDSendTextFunction
@@ -29,9 +29,10 @@ Resources:
           SNS_TOPIC_ARN: !Ref CICDSendTextSNSTopic
 
   CICDSendTextSNSTopic:
-    # An SNS topic that sends text messages
+    # An SNS topic
     Type: AWS::SNS::Topic
     Properties:
+      # Subscribing yourself to receive messages from this topic
       Subscription:
       - Protocol: sms
         Endpoint: !Ref MyPhoneNumber
